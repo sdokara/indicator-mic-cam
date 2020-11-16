@@ -11,6 +11,7 @@ In the future, it could also show an icon for webcams.
 Dependencies
 ------------
 
+* libgl
 * libpulse
 
 
