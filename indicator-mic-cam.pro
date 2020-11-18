@@ -11,13 +11,15 @@ CONFIG += c++11
 SOURCES += \
     src/main.cpp \
     src/pulseaudio.cpp \
-    src/pulsecallbacks.cpp \
-    src/traymanager.cpp
+    src/traymanager.cpp \
+    src/webcamera.cpp
 
 HEADERS += \
+    src/device.h \
     src/pulseaudio.h \
-    src/pulsecallbacks.h \
-    src/traymanager.h
+    src/traymanager.h \
+    src/unused.h \
+    src/webcamera.h
 
 FORMS +=
 

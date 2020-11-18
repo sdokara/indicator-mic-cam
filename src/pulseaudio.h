@@ -5,6 +5,8 @@
 #include <list>
 #include <pulse/pulseaudio.h>
 
+#include "device.h"
+
 enum state {
     CONNECTING,
     CONNECTED,
@@ -12,16 +14,8 @@ enum state {
 };
 typedef enum state state_t;
 
-struct Device {
-    uint32_t index;
-    const char* description;
-    pa_source_state_t state;
-};
-inline bool operator == (const Device& dev1, const Device& dev2) {
-    return dev1.index == dev2.index;
-}
 
-class PulseAudio {
+class PulseAudio: public SourceSupplier {
 private:
     pa_mainloop* mainloop;
     pa_mainloop_api* mainloop_api;
@@ -33,11 +27,15 @@ private:
 
 public:
     PulseAudio(std::string name);
-    ~PulseAudio();
+    virtual ~PulseAudio();
 
-    std::list<Device> getSources();
+    virtual std::list<Device> getSources() final;
 
-    friend void state_cb(pa_context* context, void* raw);
+    friend void pa_state_cb(pa_context* context, void* raw);
 };
+
+
+void pa_state_cb(pa_context* context, void* raw);
+void pa_source_list_cb(pa_context* context, const pa_source_info *i, int eol, void *raw);
 
 #endif // PULSEAUDIO_H
