@@ -35,14 +35,14 @@ void TrayManager::run() {
 void TrayManager::refresh(SourceSupplier* supplier, std::list<Device>& oldInUseDevices, QSystemTrayIcon* trayIcon) {
     std::list<Device> devices = supplier->getSources();
     std::list<Device> inUseDevices;
-    for (Device device : devices) {
+    for (Device &device : devices) {
         if (device.isInUse()) {
             inUseDevices.push_back(device);
         }
     }
     if (oldInUseDevices != inUseDevices) {
         trayIcon->contextMenu()->clear();
-        for (Device device : inUseDevices) {
+        for (Device &device : inUseDevices) {
             trayIcon->contextMenu()->addAction(new QAction(device.getDescription()));
         }
     }

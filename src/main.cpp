@@ -1,8 +1,9 @@
 #include "traymanager.h"
 
+#include <QApplication>
 
-int main(int argc, char *argv[]) {
-    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+int main(int argc, char *argv[])
+{
     QApplication application(argc, argv);
 
     if (!QSystemTrayIcon::isSystemTrayAvailable()) {

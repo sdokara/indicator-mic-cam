@@ -1,7 +1,7 @@
 #include <QtDebug>
 
-#include "unused.h"
 #include "pulseaudio.h"
+#include "unused.h"
 
 
 PulseAudio::PulseAudio(std::string clientName) {
@@ -72,6 +72,8 @@ void pa_source_list_cb(pa_context* UNUSED(context), const pa_source_info *i, int
         return;
     }
     std::list<Device>* devices = (std::list<Device>*) raw;
-    Device device(i->index, i->description, i->state == PA_SOURCE_RUNNING);
-    devices->push_back(device);
+    if (i->monitor_of_sink == PA_INVALID_INDEX) {
+        Device device(i->index, i->description, i->state == PA_SOURCE_RUNNING);
+        devices->push_back(device);
+    }
 }

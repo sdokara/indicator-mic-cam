@@ -60,6 +60,9 @@ moc_predefs.h
 *.vcxproj
 *vcxproj.*
 
+# Build directories
+/build
+
 # MinGW generated files
 *.Debug
 *.Release

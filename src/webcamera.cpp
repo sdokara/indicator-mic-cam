@@ -7,7 +7,7 @@ WebCamera::~WebCamera() {}
 QString WebCamera::readProperty(QFileInfo dir, QString property) {
     QFile file(dir.absoluteFilePath() + "/" + property);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-         throw "Failed reading name";
+        throw "Failed reading name";
     }
     QByteArray data = file.readAll();
     return QString(data).replace("\n", "").trimmed();
@@ -22,7 +22,7 @@ std::list<Device> WebCamera::getSources() {
     std::list<Device> devices;
     QDir directory("/sys/class/video4linux");
     QFileInfoList dirs = directory.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
-    for (QFileInfo dir : dirs) {
+    for (QFileInfo &dir : dirs) {
         int index = readProperty(dir, "index").toInt();
         QString name = readProperty(dir, "name");
         bool inUse = isInUse(dir.baseName());
